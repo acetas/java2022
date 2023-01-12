@@ -1,15 +1,10 @@
 package com.kodlamaIo.devs.dataAccess.abstracts;
 
-import java.util.List;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.kodlamaIo.devs.entities.concretes.ProgrammingLans;
 
-public interface ProgrammingLansRepository {
+public interface ProgrammingLansRepository extends JpaRepository<ProgrammingLans, Integer> {
 
-	List<ProgrammingLans> getAll();
-	String add(ProgrammingLans programmingLans);
-	String delete(int id);
-	String update(int id);
-	public String getById(int id);
 	
 }

@@ -10,7 +10,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.kodlamaIo.devs.business.abstracts.ProgrammingLansService;
-import com.kodlamaIo.devs.entities.concretes.ProgrammingLans;
+import com.kodlamaIo.devs.business.requests.AddProgrammingLanguageRequest;
+import com.kodlamaIo.devs.business.requests.UpdateProgrammingLansRequest;
+import com.kodlamaIo.devs.business.responses.GetAllProgrammingLansResponse;
+import com.kodlamaIo.devs.business.responses.GetByIdProgrammingLansResponse;
 
 @RestController
 @RequestMapping("/api/plangs/")
@@ -23,27 +26,27 @@ public class ProgrammingLansController {
 	}
 	
 	@GetMapping("getAll")
-	public List<ProgrammingLans> getAll() {
+	public List<GetAllProgrammingLansResponse> getAll() {
 		return programmingLansService.getAll();
 	}
 
 	@PostMapping("add")
-	public String add(ProgrammingLans programmingLans) {
-		return programmingLansService.add(programmingLans);
+	public void add(AddProgrammingLanguageRequest programmingLans) throws Exception {
+		programmingLansService.add(programmingLans);
 	}
 
 	@DeleteMapping("delete")
-	public String delete(int id) {
-		return programmingLansService.delete(id);
+	public void delete(int id) {
+		programmingLansService.delete(id);
 	}
 
 	@PutMapping("update")
-	public String update(int id) {
-		return programmingLansService.update(id);
+	public void update(int id, UpdateProgrammingLansRequest updateProgrammingLansRequest) {
+		programmingLansService.update(id, updateProgrammingLansRequest);
 	}
 
 	@GetMapping("getById")
-	public String getById(int id) {
+	public GetByIdProgrammingLansResponse getById(int id) {
 		return programmingLansService.getById(id);
 	}
 	

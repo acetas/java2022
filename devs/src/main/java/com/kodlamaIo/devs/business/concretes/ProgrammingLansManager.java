@@ -2,49 +2,84 @@ package com.kodlamaIo.devs.business.concretes;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kodlamaIo.devs.business.abstracts.ProgrammingLansService;
+import com.kodlamaIo.devs.business.requests.AddProgrammingLanguageRequest;
+import com.kodlamaIo.devs.business.requests.UpdateProgrammingLansRequest;
+import com.kodlamaIo.devs.business.responses.GetAllProgrammingLansResponse;
+import com.kodlamaIo.devs.business.responses.GetByIdProgrammingLansResponse;
 import com.kodlamaIo.devs.dataAccess.abstracts.ProgrammingLansRepository;
 import com.kodlamaIo.devs.entities.concretes.ProgrammingLans;
+
 
 @Service
 public class ProgrammingLansManager implements ProgrammingLansService {
 	
 	private ProgrammingLansRepository lansRepository;
-
-	public ProgrammingLansManager(ProgrammingLansRepository lansRepository) {
+	private List<GetAllProgrammingLansResponse> getAllLans;
+	//private List<GetAllProgrammingLansResponse> getAllLans = new ArrayList<>();
+	
+	@Autowired
+	public ProgrammingLansManager(ProgrammingLansRepository lansRepository, List<GetAllProgrammingLansResponse> getAllLans) {
 		this.lansRepository = lansRepository;
+		this.getAllLans = getAllLans;
 	}
 
 	@Override
-	public List<ProgrammingLans> getAll() {
-		return lansRepository.getAll();
+	public List<GetAllProgrammingLansResponse> getAll() {
+		if(!getAllLans.isEmpty()) {
+			getAllLans.clear();
+		}
+		for (ProgrammingLans lang : lansRepository.findAll()) {
+			GetAllProgrammingLansResponse lansResponse = GetAllProgrammingLansResponse.builder()
+					.id(lang.getId())
+					.name(lang.getName())
+					.build();
+			getAllLans.add(lansResponse);
+		}
+		return getAllLans;
 	}
 
 	@Override
-	public String add(ProgrammingLans programmingLans) {
-		for (ProgrammingLans programmingLans2 : getAll()) {
-			if(programmingLans2.getName().equals(programmingLans.getName()) || programmingLans.getName().isEmpty()) {
-				return "İsim alanını boş bıraktınız veya önceden eklenmiş bir isim girdiniz.";
+	public void add(AddProgrammingLanguageRequest addProgrammingLanguageRequest) throws Exception {
+		for (ProgrammingLans programmingLans2 : lansRepository.findAll()) {
+			if(programmingLans2.getName().equals(addProgrammingLanguageRequest.getName()) || addProgrammingLanguageRequest.getName().isEmpty()) {
+				throw new Exception("Programlama dili veritabanında zaten var ya da isim alanını boş geçtiniz");
 			}
 		}
-		return lansRepository.add(programmingLans);
+		ProgrammingLans programmingLan = ProgrammingLans.builder()
+				.id(0)
+				.name(addProgrammingLanguageRequest.getName())
+				.build();
+		lansRepository.save(programmingLan);
 	}
 
 	@Override
-	public String delete(int id) {
-		return lansRepository.delete(id);
+	public void delete(int id) {
+		lansRepository.deleteById(id);
 	}
 
 	@Override
-	public String update(int id) {
-		return lansRepository.update(id);
+	public void update(int id, UpdateProgrammingLansRequest updateProgrammingLansRequest) {
+		ProgrammingLans language = lansRepository.findById(id).get();
+		language.setName(updateProgrammingLansRequest.getName());
+		lansRepository.save(language);
 	}
 
 	@Override
-	public String getById(int id) {
-		return lansRepository.getById(id);
+	public GetByIdProgrammingLansResponse getById(int id) {
+		
+		ProgrammingLans programmingLang = lansRepository.findById(id).get();
+		GetByIdProgrammingLansResponse getByIdProgrammingLansResponse = GetByIdProgrammingLansResponse.builder()
+				.id(programmingLang.getId())
+				.name(programmingLang.getName())
+				.build();
+		return getByIdProgrammingLansResponse;
 	}
 
+	
+
+	
 }
