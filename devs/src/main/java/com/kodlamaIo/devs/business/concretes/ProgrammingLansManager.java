@@ -36,6 +36,7 @@ public class ProgrammingLansManager implements ProgrammingLansService {
 			GetAllProgrammingLansResponse lansResponse = GetAllProgrammingLansResponse.builder()
 					.id(lang.getId())
 					.name(lang.getName())
+					.subProgrammingLans(lang.getSubProgrammingLans())
 					.build();
 			getAllLans.add(lansResponse);
 		}
@@ -75,6 +76,7 @@ public class ProgrammingLansManager implements ProgrammingLansService {
 		GetByIdProgrammingLansResponse getByIdProgrammingLansResponse = GetByIdProgrammingLansResponse.builder()
 				.id(programmingLang.getId())
 				.name(programmingLang.getName())
+				.subProgrammingLans(programmingLang.getSubProgrammingLans())
 				.build();
 		return getByIdProgrammingLansResponse;
 	}

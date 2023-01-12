@@ -1,26 +1,28 @@
 package com.kodlamaIo.devs.entities.concretes;
 
-import java.util.List;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity
 @Data
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name="programming_lans")
-public class ProgrammingLans {
+@Builder
+@Entity
+@Table(name="subprogramminglans")
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler","programmingLans"})
+public class SubProgrammingLans {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,7 +32,8 @@ public class ProgrammingLans {
 	@Column(name="name")
 	private String name;
 	
-	@OneToMany(mappedBy = "programmingLans")
-	private List<SubProgrammingLans> subProgrammingLans;
+	@ManyToOne
+	@JoinColumn(name = "programmingLansId")
+    private ProgrammingLans programmingLans;
 
 }

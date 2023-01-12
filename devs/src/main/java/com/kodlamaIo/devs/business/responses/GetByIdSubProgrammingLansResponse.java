@@ -1,8 +1,6 @@
 package com.kodlamaIo.devs.business.responses;
 
-import java.util.List;
-
-import com.kodlamaIo.devs.entities.concretes.SubProgrammingLans;
+import com.kodlamaIo.devs.entities.concretes.ProgrammingLans;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,13 +8,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-public class GetAllProgrammingLansResponse {
-	
+public class GetByIdSubProgrammingLansResponse {
+
 	private int id;
 	private String name;
-	private List<SubProgrammingLans> subProgrammingLans;
+	private ProgrammingLans programmingLans;
 	
 }
