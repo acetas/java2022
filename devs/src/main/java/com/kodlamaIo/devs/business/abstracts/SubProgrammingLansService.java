@@ -13,7 +13,7 @@ import com.kodlamaIo.devs.entities.dtos.SubProgrammingLansWithProgrammingLansDto
 public interface SubProgrammingLansService {
 
 	DataResult<List<GetAllSubProgrammingLansResponse>> getAll();
-	Result add(AddSubProgrammingLansRequests addSubProgrammingLansRequests) throws Exception;
+	Result add(AddSubProgrammingLansRequests addSubProgrammingLansRequests);
 	Result delete(int id);
 	Result update(int id, UpdateSubProgrammingLansRequests updateSubProgrammingLansRequest);
 	DataResult<GetByIdSubProgrammingLansResponse> getById(int id);

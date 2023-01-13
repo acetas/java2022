@@ -2,6 +2,7 @@ package com.kodlamaIo.devs.webApi.controllers;
 
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,6 +18,8 @@ import com.kodlamaIo.devs.business.responses.GetByIdSubProgrammingLansResponse;
 import com.kodlamaIo.devs.common.utilities.results.DataResult;
 import com.kodlamaIo.devs.common.utilities.results.Result;
 import com.kodlamaIo.devs.entities.dtos.SubProgrammingLansWithProgrammingLansDto;
+
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/sublangs/")
@@ -34,8 +37,8 @@ public class SubProgrammingLansController {
 	};
 	
 	@PostMapping("add")
-	public Result add(AddSubProgrammingLansRequests addSubProgrammingLansRequests) throws Exception{
-		return subProgrammingLansService.add(addSubProgrammingLansRequests);
+	public ResponseEntity<?> add(@Valid AddSubProgrammingLansRequests addSubProgrammingLansRequests){
+		return ResponseEntity.ok(subProgrammingLansService.add(addSubProgrammingLansRequests));
 	};
 	
 	@DeleteMapping("delete")

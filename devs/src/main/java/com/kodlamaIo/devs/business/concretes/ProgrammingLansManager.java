@@ -77,6 +77,7 @@ public class ProgrammingLansManager implements ProgrammingLansService {
 	public DataResult<GetByIdProgrammingLansResponse> getById(int id) {
 		
 		ProgrammingLans programmingLang = lansRepository.findById(id).get();
+		
 		GetByIdProgrammingLansResponse getByIdProgrammingLansResponse = GetByIdProgrammingLansResponse.builder()
 				.id(programmingLang.getId())
 				.name(programmingLang.getName())

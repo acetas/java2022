@@ -48,7 +48,7 @@ public class SubProgrammingLansManager implements SubProgrammingLansService {
 	}
 
 	@Override
-	public Result add(AddSubProgrammingLansRequests addSubProgrammingLansRequests) throws Exception {
+	public Result add(AddSubProgrammingLansRequests addSubProgrammingLansRequests) {
 		SubProgrammingLans subProgrammingLans = SubProgrammingLans.builder()
 				.id(0)
 				.name(addSubProgrammingLansRequests.getName())
