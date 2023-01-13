@@ -14,6 +14,8 @@ import com.kodlamaIo.devs.business.requests.AddProgrammingLanguageRequest;
 import com.kodlamaIo.devs.business.requests.UpdateProgrammingLansRequest;
 import com.kodlamaIo.devs.business.responses.GetAllProgrammingLansResponse;
 import com.kodlamaIo.devs.business.responses.GetByIdProgrammingLansResponse;
+import com.kodlamaIo.devs.common.utilities.results.DataResult;
+import com.kodlamaIo.devs.common.utilities.results.Result;
 
 @RestController
 @RequestMapping("/api/plangs/")
@@ -26,27 +28,27 @@ public class ProgrammingLansController {
 	}
 	
 	@GetMapping("getAll")
-	public List<GetAllProgrammingLansResponse> getAll() {
+	public DataResult<List<GetAllProgrammingLansResponse>> getAll() {
 		return programmingLansService.getAll();
 	}
 
 	@PostMapping("add")
-	public void add(AddProgrammingLanguageRequest programmingLans) throws Exception {
-		programmingLansService.add(programmingLans);
+	public Result add(AddProgrammingLanguageRequest programmingLans) {
+		return programmingLansService.add(programmingLans);
 	}
 
 	@DeleteMapping("delete")
-	public void delete(int id) {
-		programmingLansService.delete(id);
+	public Result delete(int id) {
+		return programmingLansService.delete(id);
 	}
 
 	@PutMapping("update")
-	public void update(int id, UpdateProgrammingLansRequest updateProgrammingLansRequest) {
-		programmingLansService.update(id, updateProgrammingLansRequest);
+	public Result update(int id, UpdateProgrammingLansRequest updateProgrammingLansRequest) {
+		return programmingLansService.update(id, updateProgrammingLansRequest);
 	}
 
 	@GetMapping("getById")
-	public GetByIdProgrammingLansResponse getById(int id) {
+	public DataResult<GetByIdProgrammingLansResponse> getById(int id) {
 		return programmingLansService.getById(id);
 	}
 	

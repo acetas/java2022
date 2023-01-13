@@ -14,6 +14,8 @@ import com.kodlamaIo.devs.business.requests.AddSubProgrammingLansRequests;
 import com.kodlamaIo.devs.business.requests.UpdateSubProgrammingLansRequests;
 import com.kodlamaIo.devs.business.responses.GetAllSubProgrammingLansResponse;
 import com.kodlamaIo.devs.business.responses.GetByIdSubProgrammingLansResponse;
+import com.kodlamaIo.devs.common.utilities.results.DataResult;
+import com.kodlamaIo.devs.common.utilities.results.Result;
 
 @RestController
 @RequestMapping("/api/sublangs/")
@@ -26,27 +28,27 @@ public class SubProgrammingLansController {
 	}
 	
 	@GetMapping("getAll")
-	public List<GetAllSubProgrammingLansResponse> getAll(){
+	public DataResult<List<GetAllSubProgrammingLansResponse>> getAll(){
 		return subProgrammingLansService.getAll();
 	};
 	
 	@PostMapping("add")
-	public void add(AddSubProgrammingLansRequests addSubProgrammingLansRequests) throws Exception{
-		subProgrammingLansService.add(addSubProgrammingLansRequests);
+	public Result add(AddSubProgrammingLansRequests addSubProgrammingLansRequests) throws Exception{
+		return subProgrammingLansService.add(addSubProgrammingLansRequests);
 	};
 	
 	@DeleteMapping("delete")
-	public void delete(int id){
-		subProgrammingLansService.delete(id);
+	public Result delete(int id){
+		return subProgrammingLansService.delete(id);
 	};
 	
 	@PutMapping("update")
-	public void update(int id, UpdateSubProgrammingLansRequests updateSubProgrammingLansRequest){
-		subProgrammingLansService.update(id, updateSubProgrammingLansRequest);
+	public Result update(int id, UpdateSubProgrammingLansRequests updateSubProgrammingLansRequest){
+		return subProgrammingLansService.update(id, updateSubProgrammingLansRequest);
 	};
 	
 	@GetMapping("getById")
-	public GetByIdSubProgrammingLansResponse getById(int id){
+	public DataResult<GetByIdSubProgrammingLansResponse> getById(int id){
 		return subProgrammingLansService.getById(id);
 	};
 	

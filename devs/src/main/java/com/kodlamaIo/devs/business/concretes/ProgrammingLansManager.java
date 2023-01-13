@@ -1,5 +1,6 @@
 package com.kodlamaIo.devs.business.concretes;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,11 @@ import com.kodlamaIo.devs.business.requests.AddProgrammingLanguageRequest;
 import com.kodlamaIo.devs.business.requests.UpdateProgrammingLansRequest;
 import com.kodlamaIo.devs.business.responses.GetAllProgrammingLansResponse;
 import com.kodlamaIo.devs.business.responses.GetByIdProgrammingLansResponse;
+import com.kodlamaIo.devs.common.utilities.results.DataResult;
+import com.kodlamaIo.devs.common.utilities.results.ErrorResult;
+import com.kodlamaIo.devs.common.utilities.results.Result;
+import com.kodlamaIo.devs.common.utilities.results.SuccessDataResult;
+import com.kodlamaIo.devs.common.utilities.results.SuccessResult;
 import com.kodlamaIo.devs.dataAccess.abstracts.ProgrammingLansRepository;
 import com.kodlamaIo.devs.entities.concretes.ProgrammingLans;
 
@@ -18,20 +24,15 @@ import com.kodlamaIo.devs.entities.concretes.ProgrammingLans;
 public class ProgrammingLansManager implements ProgrammingLansService {
 	
 	private ProgrammingLansRepository lansRepository;
-	private List<GetAllProgrammingLansResponse> getAllLans;
-	//private List<GetAllProgrammingLansResponse> getAllLans = new ArrayList<>();
 	
 	@Autowired
-	public ProgrammingLansManager(ProgrammingLansRepository lansRepository, List<GetAllProgrammingLansResponse> getAllLans) {
+	public ProgrammingLansManager(ProgrammingLansRepository lansRepository) {
 		this.lansRepository = lansRepository;
-		this.getAllLans = getAllLans;
 	}
 
 	@Override
-	public List<GetAllProgrammingLansResponse> getAll() {
-		if(!getAllLans.isEmpty()) {
-			getAllLans.clear();
-		}
+	public DataResult<List<GetAllProgrammingLansResponse>> getAll() {
+		List<GetAllProgrammingLansResponse> getAllLans = new ArrayList<>();
 		for (ProgrammingLans lang : lansRepository.findAll()) {
 			GetAllProgrammingLansResponse lansResponse = GetAllProgrammingLansResponse.builder()
 					.id(lang.getId())
@@ -40,14 +41,14 @@ public class ProgrammingLansManager implements ProgrammingLansService {
 					.build();
 			getAllLans.add(lansResponse);
 		}
-		return getAllLans;
+		return new SuccessDataResult<List<GetAllProgrammingLansResponse>>(getAllLans, "Programlama dilleri listelendi");
 	}
 
 	@Override
-	public void add(AddProgrammingLanguageRequest addProgrammingLanguageRequest) throws Exception {
+	public Result add(AddProgrammingLanguageRequest addProgrammingLanguageRequest) {
 		for (ProgrammingLans programmingLans2 : lansRepository.findAll()) {
 			if(programmingLans2.getName().equals(addProgrammingLanguageRequest.getName()) || addProgrammingLanguageRequest.getName().isEmpty()) {
-				throw new Exception("Programlama dili veritabanında zaten var ya da isim alanını boş geçtiniz");
+				return new ErrorResult("Programlama dili veritabanında zaten var ya da isim alanını boş geçtiniz");
 			}
 		}
 		ProgrammingLans programmingLan = ProgrammingLans.builder()
@@ -55,22 +56,25 @@ public class ProgrammingLansManager implements ProgrammingLansService {
 				.name(addProgrammingLanguageRequest.getName())
 				.build();
 		lansRepository.save(programmingLan);
+		return new SuccessResult(programmingLan.getName() + " programlama dli eklendi");
 	}
 
 	@Override
-	public void delete(int id) {
+	public Result delete(int id) {
 		lansRepository.deleteById(id);
+		return new SuccessResult("Programlama dili silindi");
 	}
 
 	@Override
-	public void update(int id, UpdateProgrammingLansRequest updateProgrammingLansRequest) {
+	public DataResult<ProgrammingLans> update(int id, UpdateProgrammingLansRequest updateProgrammingLansRequest) {
 		ProgrammingLans language = lansRepository.findById(id).get();
 		language.setName(updateProgrammingLansRequest.getName());
 		lansRepository.save(language);
+		return new SuccessDataResult<ProgrammingLans>(language, language.getName() + "programlama dili güncellendi");
 	}
 
 	@Override
-	public GetByIdProgrammingLansResponse getById(int id) {
+	public DataResult<GetByIdProgrammingLansResponse> getById(int id) {
 		
 		ProgrammingLans programmingLang = lansRepository.findById(id).get();
 		GetByIdProgrammingLansResponse getByIdProgrammingLansResponse = GetByIdProgrammingLansResponse.builder()
@@ -78,7 +82,8 @@ public class ProgrammingLansManager implements ProgrammingLansService {
 				.name(programmingLang.getName())
 				.subProgrammingLans(programmingLang.getSubProgrammingLans())
 				.build();
-		return getByIdProgrammingLansResponse;
+		return new SuccessDataResult<GetByIdProgrammingLansResponse>(getByIdProgrammingLansResponse, getByIdProgrammingLansResponse.getId() + " id no'lu programlama dili getirildi");
+	
 	}
 
 	

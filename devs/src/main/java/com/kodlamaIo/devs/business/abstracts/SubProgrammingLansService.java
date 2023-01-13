@@ -6,13 +6,15 @@ import com.kodlamaIo.devs.business.requests.AddSubProgrammingLansRequests;
 import com.kodlamaIo.devs.business.requests.UpdateSubProgrammingLansRequests;
 import com.kodlamaIo.devs.business.responses.GetAllSubProgrammingLansResponse;
 import com.kodlamaIo.devs.business.responses.GetByIdSubProgrammingLansResponse;
+import com.kodlamaIo.devs.common.utilities.results.DataResult;
+import com.kodlamaIo.devs.common.utilities.results.Result;
 
 public interface SubProgrammingLansService {
 
-	List<GetAllSubProgrammingLansResponse> getAll();
-	void add(AddSubProgrammingLansRequests addSubProgrammingLansRequests) throws Exception;
-	void delete(int id);
-	void update(int id, UpdateSubProgrammingLansRequests updateSubProgrammingLansRequest);
-	GetByIdSubProgrammingLansResponse getById(int id);
+	DataResult<List<GetAllSubProgrammingLansResponse>> getAll();
+	Result add(AddSubProgrammingLansRequests addSubProgrammingLansRequests) throws Exception;
+	Result delete(int id);
+	Result update(int id, UpdateSubProgrammingLansRequests updateSubProgrammingLansRequest);
+	DataResult<GetByIdSubProgrammingLansResponse> getById(int id);
 	
 }
