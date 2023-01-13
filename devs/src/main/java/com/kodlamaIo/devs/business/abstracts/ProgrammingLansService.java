@@ -17,5 +17,5 @@ public interface ProgrammingLansService {
 	Result delete(int id);
 	DataResult<ProgrammingLans> update(int id, UpdateProgrammingLansRequest updateProgrammingLansRequest);
 	DataResult<GetByIdProgrammingLansResponse> getById(int id);
-	
+		
 }

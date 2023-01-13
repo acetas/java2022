@@ -16,6 +16,7 @@ import com.kodlamaIo.devs.business.responses.GetAllSubProgrammingLansResponse;
 import com.kodlamaIo.devs.business.responses.GetByIdSubProgrammingLansResponse;
 import com.kodlamaIo.devs.common.utilities.results.DataResult;
 import com.kodlamaIo.devs.common.utilities.results.Result;
+import com.kodlamaIo.devs.entities.dtos.SubProgrammingLansWithProgrammingLansDto;
 
 @RestController
 @RequestMapping("/api/sublangs/")
@@ -51,5 +52,10 @@ public class SubProgrammingLansController {
 	public DataResult<GetByIdSubProgrammingLansResponse> getById(int id){
 		return subProgrammingLansService.getById(id);
 	};
+	
+	@GetMapping("getAllDetails")
+	public DataResult<List<SubProgrammingLansWithProgrammingLansDto>> getAllDetails(){
+		return subProgrammingLansService.getSubProgrammingLansWithProgrammingLansDetails();
+	}
 	
 }

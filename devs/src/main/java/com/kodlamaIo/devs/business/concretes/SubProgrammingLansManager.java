@@ -18,6 +18,7 @@ import com.kodlamaIo.devs.common.utilities.results.SuccessResult;
 import com.kodlamaIo.devs.dataAccess.abstracts.ProgrammingLansRepository;
 import com.kodlamaIo.devs.dataAccess.abstracts.SubProgrammingLansRepository;
 import com.kodlamaIo.devs.entities.concretes.SubProgrammingLans;
+import com.kodlamaIo.devs.entities.dtos.SubProgrammingLansWithProgrammingLansDto;
 
 @Service
 public class SubProgrammingLansManager implements SubProgrammingLansService {
@@ -86,4 +87,10 @@ public class SubProgrammingLansManager implements SubProgrammingLansService {
 		return new SuccessDataResult<GetByIdSubProgrammingLansResponse>(getByIdSubProgrammingLansResponse, getByIdSubProgrammingLansResponse.getId() + " id no'lu alt dil listelendi");
 	}
 
+	@Override
+	public DataResult<List<SubProgrammingLansWithProgrammingLansDto>> getSubProgrammingLansWithProgrammingLansDetails() {
+		return new SuccessDataResult<List<SubProgrammingLansWithProgrammingLansDto>>
+		(this.lansRepository.getSubProgrammingLansWithProgrammingLansDetails(), "Data Listelendi");
+	}
+	
 }
