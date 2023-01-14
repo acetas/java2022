@@ -26,12 +26,12 @@ public class Main {
 
 		// 7. video "datatypes"
 
-		double sayi = 12.5;
-		sayi = 13;
-
-		char karakter = 'A';
-
-		boolean dogruMu = false;
+//		double sayi = 12.5;
+//		sayi = 13;
+//
+//		char karakter = 'A';
+//
+//		boolean dogruMu = false;
 
 		// 8. video "conditionals"
 
