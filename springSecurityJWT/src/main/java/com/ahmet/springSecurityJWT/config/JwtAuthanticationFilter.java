@@ -4,6 +4,8 @@ import java.io.IOException;
 
 import com.ahmet.springSecurityJWT.business.abstracts.JwtService;
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -21,8 +23,10 @@ import org.springframework.web.filter.OncePerRequestFilter;
 @RequiredArgsConstructor
 public class JwtAuthanticationFilter extends OncePerRequestFilter {
 
+	@Autowired
 	private final JwtService jwtService;
 
+	@Autowired
 	private final UserDetailsService userDetailsService;
 
 	@Override

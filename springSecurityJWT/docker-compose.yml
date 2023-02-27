@@ -5,7 +5,7 @@ services:
     image: postgres
     environment:
       POSTGRES_DB: JWT
-      POSTGRES_USER: admin
-      POSTGRES_PASSWORD: password
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 12345
     ports:
       - "5432-5432"
